@@ -10,9 +10,15 @@ public:
     Fecha(const char*); //Constructor de conversion
 
     class Invalida{
-    public: 
-        void por_que(); //Metodo para errores
+    public:
+        Invalida(const char* reason) : why(reason){} 
+        const char * por_que(){return why;}; //Metodo para errores
+    private:
+        const char* why;
     };
+
+    static const int AnnoMinimo = 1902;
+    static const int AnnoMaximo = 2037; //Limites de años
 
     //Metodos observadores
     int dia() const;
@@ -21,7 +27,7 @@ public:
 
     //Sobrecarga de operadores
     Fecha& operator ++(); //Prefijo
-    Fecha operator ++(int aux); //Postfijo
+    Fecha operator ++(int); //Postfijo
     Fecha& operator --(); //Prefijo
     Fecha operator --(int); //Postfijo
 
@@ -38,6 +44,7 @@ public:
     bool operator != (const Fecha&) const;
 
     Fecha& operator = (const Fecha&); //Operador de asignación
+    const char * convertir_a_cadena() const;
 
 private:
     int day;
