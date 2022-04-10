@@ -1,5 +1,8 @@
 #include <iostream>
+#include <string.h>
 #include "cadena.hpp"
+
+using namespace std;
 
 Cadena::Cadena(size_t t, char c_relleno)
 {
@@ -14,7 +17,7 @@ Cadena::Cadena(size_t t, char c_relleno)
 
 Cadena::Cadena(const char* cad)
 {
-    tam_ = std::strlen(cad);
+    tam_ = strlen(cad);
     s_ = new char[tam_ + 1];
     for (size_t i=0; i < tam_; i++)
     {
@@ -87,7 +90,7 @@ Cadena& Cadena::operator= (const Cadena& C)
         delete[] s_;
         tam_ = C.tam_;
         s_ = new char[tam_ + 1];
-        std::strcpy(s_,C.s_);
+        strcpy(s_,C.s_);
     }
     return *this;
 }
@@ -108,11 +111,11 @@ Cadena& Cadena::operator= (Cadena&& C)
 
 Cadena& Cadena::operator=(const char* cad)
 {
-    if(std::strcmp(s_,cad))
+    if(strcmp(s_,cad))
     {
-        tam_ = std::strlen(cad);
+        tam_ = strlen(cad);
         s_ = new char[tam_ + 1];
-        std::strcpy(s_,cad);
+        strcpy(s_,cad);
 
     }
 
@@ -129,15 +132,15 @@ Cadena Cadena::operator+ (const Cadena& C) const
 
 Cadena& Cadena::operator+=(const Cadena& C)
 {
-    std::strcat(s_,C.c_str());
+    strcat(s_,C.c_str());
     tam_ += C.tam_;
     return *this;
 }
 
-bool operator ==(const Cadena& A, const Cadena& B){return !(std::strcmp(A.c_str(),B.c_str()));}
-bool operator !=(const Cadena& A, const Cadena& B){return std::strcmp(A.c_str(),B.c_str());}
+bool operator ==(const Cadena& A, const Cadena& B){return !(strcmp(A.c_str(),B.c_str()));}
+bool operator !=(const Cadena& A, const Cadena& B){return strcmp(A.c_str(),B.c_str());}
 
-bool operator >(const Cadena& A, const Cadena& B){return std::strcmp(A.c_str(),B.c_str()) > 0;}
+bool operator >(const Cadena& A, const Cadena& B){return strcmp(A.c_str(),B.c_str()) > 0;}
 
 bool operator >=(const Cadena& A, const Cadena& B){return (A == B || A > B);}
 
