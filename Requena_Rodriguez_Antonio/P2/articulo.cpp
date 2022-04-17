@@ -42,7 +42,6 @@ int& Articulo::stock()
 
 ostream& operator <<(ostream& os , const Articulo& A)
 {
-    const char EUROSIGN = 128;
-    os << "[" << A.referencia() << "] \"" << A.titulo() << "\", " << A.f_publi().anno() << ". " << fixed << setprecision(2) <<A.precio() << " " << EUROSIGN; 
+    os << "[" << A.referencia() << "] \"" << A.titulo() << "\", " << A.f_publi().anno() << ". " << fixed << setprecision(2) <<A.precio() << " €"; 
     return os;
 }

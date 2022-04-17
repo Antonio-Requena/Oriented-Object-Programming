@@ -1,12 +1,14 @@
 #ifndef ARTICULO_HPP
 #define ARTICULO_HPP
 
-#include "fecha.hpp"
-#include "cadena.hpp"
+#include "../P1/fecha.hpp"
+#include "../P1/cadena.hpp"
 
 class Articulo{
 public:
     Articulo(const Cadena referencia, const Cadena titulo, const Fecha f_publi, double precio, int stock = 0);
+    Articulo(const Articulo&) = delete;
+    Articulo(Articulo&&) = delete;
     Cadena referencia() const;
     Cadena titulo() const;
     Fecha f_publi() const;
