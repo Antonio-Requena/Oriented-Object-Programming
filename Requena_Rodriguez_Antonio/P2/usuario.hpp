@@ -3,7 +3,6 @@
 
 #include "../P1/cadena.hpp"
 #include "articulo.hpp"
-#include "tarjeta.hpp"
 #include <map>
 #include <unordered_map>
 #include <unordered_set>
@@ -31,6 +30,7 @@ private:
 };
 
 //USUARIO
+class Tarjeta;
 
 class Usuario
 {

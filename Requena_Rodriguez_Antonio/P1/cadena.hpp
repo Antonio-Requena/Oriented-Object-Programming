@@ -72,7 +72,24 @@ bool operator <=(const Cadena& A, const Cadena& B);
 istream& operator >>(istream&, Cadena&);
 ostream& operator <<(ostream& , const Cadena&);
 
+// Para P2 y ss.
+// Especialización de la plantilla hash<T>para definir la
+// función hash a utilizar con contenedores desordenados de
+// Cadena, unordered_[set|map|multiset|multimap]. 
+namespace std { // Estaremos dentro del espacio de nombres std
+    template <> // Es una especialización de una plantilla para Cadena 
+    struct hash<Cadena> { // Es una clase con solo un operador publico
+        size_t operator() (const Cadena& cad) const // El operador función 
+        {
+            hash<string> hs;
+            const char* p = cad.c_str();
+            string s(p);
+            size_t res = hs(s);
+            return res;
 
+        } 
+    };
+}
 
 
 #endif

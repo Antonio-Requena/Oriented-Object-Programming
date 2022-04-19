@@ -5,6 +5,7 @@
 #include <iostream>
 #include <unistd.h>
 #include "usuario.hpp"
+#include "tarjeta.hpp"
 
 Clave::Clave(const char* C)
 {
@@ -89,6 +90,10 @@ ostream& operator <<(ostream& os , const Usuario& user)
     os << user.id_ << " [" << user.pass_.clave() << "] " << user.nombre_ << " " << user.apellidos_ << std::endl
         << user.direccion_ << std::endl << "Tarjetas:" << std::endl;
 
+    for (auto i = user.tarjetas().begin();i!= user.tarjetas().end();i++)
+    {
+        os << i->second << std::endl;
+    }
     return os;
 }
 

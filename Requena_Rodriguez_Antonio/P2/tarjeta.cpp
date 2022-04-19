@@ -4,7 +4,9 @@
 #include <algorithm>
 #include <cctype>
 #include <iostream>
+#include "usuario.hpp"
 
+bool luhn(const Cadena&);
 
 Numero::Numero(const Cadena& C): num_{C}
 {
@@ -31,25 +33,9 @@ bool operator < (const Numero& A, const Numero& B)
   return A < B;
 }
 
-bool Numero::luhn(const Cadena& numero)
-{
-  size_t n = numero.length();
-  size_t suma = 0;
-  bool alt = false;
-  for (int i = n - 1; i > -1; --i) {
-    n = numero[size_t(i)] - '0';
-    if (alt) {
-      n *= 2;
-      if (n > 9)
-	n = (n % 10) + 1;
-    }
-    alt = !alt;
-    suma += n;
-  }
-  return !(suma % 10);
-}
 
 //IMPLEMENTACION CLASE TARJETA//
+
 
 Tarjeta::Tarjeta(const Numero& n, Usuario& t,const Fecha& f): n_tarjeta{n},titular_{&t},caducidad_{f},activa_{true}
 {
@@ -95,4 +81,57 @@ void Tarjeta::anular_titular()
 {
   titular_ = nullptr;
   (*this).activa(false);
+}
+
+ostream& operator <<(ostream& os , const Tarjeta & T)
+{
+  Cadena Nombre(T.titular()->nombre());
+  Cadena Apellidos(T.titular()->apellidos());
+  
+  for (int i = 0; i < Nombre.length(); i++) 
+  {
+    Nombre[i] = toupper(Nombre[i]);
+  }
+  for (int i = 0; i < Apellidos.length(); i++) 
+  {
+    Apellidos[i] = toupper(Apellidos[i]);
+  }
+  
+  os << T.tipo() << endl << T.numero() << endl << Nombre.c_str() << " " << Apellidos.c_str() << endl 
+    << "Caduca: " << T.caducidad().mes() << "/" << T.caducidad().anno();
+
+  return os;
+}
+
+ostream& operator <<(ostream& os, Tarjeta::Tipo tipo)
+{
+  switch (tipo)
+  {
+  case 0:
+    os << "Otro";
+    break;
+  case 1:
+    os << "VISA";
+    break;
+  case 2:
+    os << "Mastercard";
+    break;
+  case 3:
+    os << "Maestro";
+    break;
+  case 4:
+    os << "JCB";
+    break;
+  case 5:
+    os << "AmericanExpress";
+    break;
+  default:
+    break;
+  }
+  return os;
+}
+
+Tarjeta::~Tarjeta()
+{
+  const_cast<Usuario&>((*titular_)).no_es_titular_de(*this);
 }

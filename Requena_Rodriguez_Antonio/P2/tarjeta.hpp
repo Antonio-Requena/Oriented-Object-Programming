@@ -2,7 +2,6 @@
 #define TARJETA_HPP
 
 #include "../P1/cadena.hpp"
-#include "usuario.hpp"
 #include <set>
 
 class Numero{
@@ -28,6 +27,7 @@ private:
 };
 
 //CLASE TARJETA//
+class Usuario;
 
 class Tarjeta{
 public:
@@ -77,6 +77,7 @@ private:
 };
 
 ostream& operator <<(ostream& , const Tarjeta &);
+
 
 inline bool operator < (const Tarjeta&A, const Tarjeta&B){return A.numero() < B.numero();}
 
